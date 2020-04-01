@@ -1,0 +1,9 @@
+openapi: 3.0.0
+paths: {}
+info:
+  title: Sample API
+  description: Description
+  version: 0.0.1
+components:
+  schemas: {}
+

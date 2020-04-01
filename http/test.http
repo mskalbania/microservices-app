@@ -1,0 +1,15 @@
+GET http://localhost:8080/v1/organizations/e254f8c-c442-4ebe-a82a-e2fc1d1ff78a/licenses
+Accept: application/json
+
+###
+
+GET http://localhost:8080/v1/organizations/Sabre/licenses/5008dd76-9dee-4b6d-9545-81412a4389f31
+Accept: application/json
+
+###
+
+GET http://localhost:8888/organizationservice/default
+
+Accept: application/json
+
+###

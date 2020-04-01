@@ -1,0 +1,26 @@
+version: '2'
+services:
+  configserver:
+    image: application/config-server:cs
+    ports:
+      - "8888:8888"
+
+  database:
+    image: postgres:9.5
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB:       "application_db"
+
+  licensing-service:
+    image: application/licensing-service:ls
+    ports:
+      - "8080:8080" #network-port:container-port
+    environment:
+      PROFILE: "default"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      CONFIGSERVER_PORT: "8888"
+      DATABASESERVER_PORT: "5432"
+
