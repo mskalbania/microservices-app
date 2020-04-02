@@ -42,4 +42,12 @@ public class License {
 
     @Transient
     private String contactEmail = "";
+
+    public License withOrganizationInfo(Organization organization) {
+        this.organizationName = organization.getName();
+        this.contactName = organization.getContactName();
+        this.contactPhone = organization.getContactPhone();
+        this.contactEmail = organization.getContactEmail();
+        return this;
+    }
 }
