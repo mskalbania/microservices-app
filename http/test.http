@@ -1,15 +1,29 @@
-GET http://localhost:8080/v1/organizations/e254f8c-c442-4ebe-a82a-e2fc1d1ff78a/licenses
+GET http://localhost:8080/v1/organizations/e254f8c-c442-4ebe-a82a-e2fc1d1ff78a/licenses/t9876f8c-c338-4abc-zf6a-ttt1
 Accept: application/json
 
 ###
 
-GET http://localhost:8080/v1/organizations/Sabre/licenses/5008dd76-9dee-4b6d-9545-81412a4389f31
+GET http://localhost:8080/v1/organizations/Sabre/licenses/t9876f8c-c338-4abc-zf6a-ttt1
 Accept: application/json
 
 ###
 
-GET http://localhost:8888/organizationservice/default
+GET http://localhost:8080/v1/tools/eureka/services
+Accept: application/json
 
+###
+
+GET http://localhost:8085/v1/organizations/e254f8c-c442-4ebe-a82a-e2fc1d1ff78a
+Accept: application/json
+
+###
+
+GET http://localhost:8761/eureka/apps/
+Accept: application/xml
+
+###
+
+GET http://localhost:8085/actuator/health
 Accept: application/json
 
 ###

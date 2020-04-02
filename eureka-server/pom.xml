@@ -2,10 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>edu.application</groupId>
-    <artifactId>licensing-service</artifactId>
+    <artifactId>eureka-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -16,51 +17,22 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-config-client</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <start-class>edu.application.licenses.LicensingServiceApplication</start-class>
-        <docker.image.name>application/licensing-service</docker.image.name>
-        <docker.image.tag>ls</docker.image.tag>
+        <start-class>edu.application.eureka.EurekaServerApplication</start-class>
+        <docker.image.name>application/eureka-server</docker.image.name>
+        <docker.image.tag>es</docker.image.tag>
         <spring-cloud.version>Hoxton.BUILD-SNAPSHOT</spring-cloud.version>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+        </dependency>
+    </dependencies>
 
     <dependencyManagement>
         <dependencies>
@@ -118,35 +90,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <!--            OpenApi turned off for simplicity-->
-
-            <!--            <plugin>-->
-            <!--                &lt;!&ndash; This 2019 version is required for OpenAPI 3 &ndash;&gt;-->
-            <!--                <groupId>io.swagger.codegen.v3</groupId>-->
-            <!--                <artifactId>swagger-codegen-maven-plugin</artifactId>-->
-            <!--                <version>3.0.8</version>-->
-            <!--                <executions>-->
-            <!--                    <execution>-->
-            <!--                        <goals>-->
-            <!--                            <goal>generate</goal>-->
-            <!--                        </goals>-->
-            <!--                        <configuration>-->
-            <!--                            <inputSpec>${project.basedir}/src/main/resources/licenses-api.yaml</inputSpec>-->
-            <!--                            <output>target/generated-sources</output>-->
-            <!--                            <language>java</language>-->
-            <!--                            <modelPackage>edu.application.licenses.model</modelPackage>-->
-            <!--                            <configOptions>-->
-            <!--                                <groupId>${project.groupId}</groupId>-->
-            <!--                                <artifactId>${project.artifactId}</artifactId>-->
-            <!--                                <artifactVersion>${project.version}</artifactVersion>-->
-            <!--                                <library>resttemplate</library>-->
-            <!--                                <java8>true</java8>-->
-            <!--                                <dateLibrary>java8</dateLibrary>-->
-            <!--                            </configOptions>-->
-            <!--                        </configuration>-->
-            <!--                    </execution>-->
-            <!--                </executions>-->
-            <!--            </plugin>-->
         </plugins>
     </build>
 
@@ -180,5 +123,4 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
-
 </project>

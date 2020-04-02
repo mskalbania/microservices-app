@@ -1,6 +1,6 @@
 spring:
   application:
-    name: licensingservice
+    name: organizationservice
 
 eureka:
   instance:
@@ -8,3 +8,5 @@ eureka:
   client:
     registerWithEureka: true
     fetchRegistry: true
+    healthcheck:
+      enabled: true
