@@ -42,6 +42,7 @@ services:
       EUREKASERVER_PORT:   "8761"
       CONFIGSERVER_PORT:   "8888"
       DATABASESERVER_PORT: "5432"
+      IS_MISBEHAVE: "false"
 
   organization-service2:
     image: application/organization-service:os
@@ -55,3 +56,4 @@ services:
       EUREKASERVER_PORT:   "8761"
       CONFIGSERVER_PORT:   "8888"
       DATABASESERVER_PORT: "5432"
+      IS_MISBEHAVE: "true"

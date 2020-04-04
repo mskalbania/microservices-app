@@ -8,3 +8,5 @@ eureka:
   client:
     registerWithEureka: true
     fetchRegistry: true
+    healthcheck:
+      enabled: true

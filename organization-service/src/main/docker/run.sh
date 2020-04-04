@@ -22,7 +22,8 @@ echo "********************************************************"
 echo "Starting Organization Service  "
 echo "********************************************************"
 java -Dserver.port=$SERVER_PORT   \
-     -Deureka.client.serviceUrl.defaultZone=$EUREKASERVER_URI             \
-     -Dspring.cloud.config.uri=$CONFIGSERVER_URI                          \
+     -Deureka.client.serviceUrl.defaultZone=$EUREKASERVER_URI            \
+     -Dspring.cloud.config.uri=$CONFIGSERVER_URI                         \
      -Dspring.profiles.active=$PROFILE                                   \
+     -Dapplication.misbehavingInstance=$IS_MISBEHAVE                     \
      -jar /usr/local/organizationservice/@project.build.finalName@.jar
