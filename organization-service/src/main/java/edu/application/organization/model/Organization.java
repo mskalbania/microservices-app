@@ -1,11 +1,9 @@
 package edu.application.organization.model;
 
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -13,6 +11,8 @@ import javax.persistence.Table;
 public class Organization {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "random_uuid")
+    @GenericGenerator(name = "random_uuid", strategy = "edu.application.organization.hibernate.RandomUUID")
     @Column(name = "organization_id", nullable = false)
     private String id;
 

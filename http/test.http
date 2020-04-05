@@ -18,12 +18,28 @@ Accept: application/json
 
 ###
 
-GET http://localhost:8080/api/organzation/v1/organizations/e254f8c-c442-4ebe-a82a-e2fc1d1ff78a
+GET http://localhost:8080/api/eureka/apps/
+Accept: application/xml
+
+###
+
+GET http://localhost:8080/api/organzation/v1/organizations
 Accept: application/json
 
 ###
 
-GET http://localhost:8080/api/eureka/apps/
-Accept: application/xml
+POST http://localhost:8080/api/organzation/v1/organizations
+Content-Type: application/json
+
+{
+  "name": "customer-crm-co",
+  "contactName": "Mateusz",
+  "contactEmail": "aa@gmail.com",
+  "contactPhone": "111"
+}
+
+###
+
+DELETE http://localhost:8080/api/organzation/v1/organizations/2e2ceb6c-4706-4637-a628-140a232053ca
 
 ###

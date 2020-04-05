@@ -3,7 +3,16 @@ application:
 spring:
   application:
     name: organizationservice
-
+  cloud:
+    stream:
+      bindings:
+        outboundOrganizationChanges:
+          destination:  orgChangeTopic
+          content-type: application/json
+      kafka:
+        binder:
+          zkNodes: kafkaserver
+          brokers: kafkaserver
 eureka:
   instance:
     preferIpAddress: true
@@ -12,3 +21,4 @@ eureka:
     fetchRegistry: true
     healthcheck:
       enabled: true
+

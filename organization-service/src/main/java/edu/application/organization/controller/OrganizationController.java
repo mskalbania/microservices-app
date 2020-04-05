@@ -1,26 +1,28 @@
 package edu.application.organization.controller;
 
 import edu.application.organization.model.Organization;
-import edu.application.organization.repository.OrganizationRepository;
-import io.vavr.control.Try;
+import edu.application.organization.service.OrganizationService;
+import io.vavr.collection.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static org.springframework.http.HttpStatus.CREATED;
+
 @RestController
 @RequestMapping("/v1/organizations")
 public class OrganizationController {
 
-    private final OrganizationRepository organizationRepository;
+    private final OrganizationService organizationService;
     private final boolean isMisbehavedService;
 
     private static final Logger LOG = LoggerFactory.getLogger(OrganizationController.class);
 
-    public OrganizationController(OrganizationRepository organizationRepository,
+    public OrganizationController(OrganizationService organizationService,
                                   @Value("${application.misbehavingInstance}") boolean isMisbehavedService) {
-        this.organizationRepository = organizationRepository;
+        this.organizationService = organizationService;
         this.isMisbehavedService = isMisbehavedService;
     }
 
@@ -28,28 +30,34 @@ public class OrganizationController {
     public ResponseEntity<Organization> getById(@PathVariable("organizationId") String organizationId,
                                                 @RequestHeader("conv-id") String convId) {
 
-        LOG.info("ConversationId [{}]", convId); //Testing if upline forwarded conv id
+        LOG.info("ConversationId [{}]", convId); //Testing if upline service forwarded conv id
         if (isMisbehavedService) {
             delay();
         }
-        return organizationRepository.findById(organizationId)
-                                     .map(ResponseEntity::ok)
-                                     .orElseGet(() -> ResponseEntity.notFound().build());
+        return ResponseEntity.ok(organizationService.getById(organizationId));
     }
 
     @GetMapping
-    public ResponseEntity<Iterable<Organization>> getAll() {
-        return ResponseEntity.ok(organizationRepository.findAll());
+    public ResponseEntity<List<Organization>> getAll() {
+        return ResponseEntity.ok(organizationService.getAll());
     }
 
     @PostMapping
     public ResponseEntity<Organization> add(@RequestBody Organization organization) {
-        return Try.of(() -> organizationRepository.save(organization))
-                  .onFailure(ex -> LOG.error("Unable to store organization: [{}]", ex.getMessage()))
-                  .map(org -> ResponseEntity.status(204).body(org))
-                  .getOrElse(() -> ResponseEntity.badRequest().build());
+        return ResponseEntity.status(CREATED).body(organizationService.save(organization));
     }
 
+    @DeleteMapping("/{organizationId}")
+    public ResponseEntity<?> delete(@PathVariable("organizationId") String organizationId) {
+        organizationService.delete(organizationId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{organizationId}")
+    public ResponseEntity<?> update(@PathVariable("organizationId") String organizationId,
+                                    @RequestBody Organization organization) {
+        return ResponseEntity.ok(organizationService.save(organization));
+    }
 
     private void delay() {
         try {

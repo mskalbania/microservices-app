@@ -1,6 +1,17 @@
 spring:
   application:
     name: licensingservice
+  cloud:
+    stream:
+      bindings:
+        inboundOrganizationChanges:
+          destination: orgChangeTopic
+          content-type: application/json
+          group: licensingGroup #makes sure that only one instance will consume message
+      kafka:
+        binder:
+          zkNodes: kafkaserver
+          brokers: kafkaserver
 
 eureka:
   instance:

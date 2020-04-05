@@ -1,6 +1,8 @@
 package edu.application.licenses;
 
+import com.fasterxml.jackson.databind.Module;
 import edu.application.licenses.utils.TransactionContextInterceptor;
+import io.vavr.jackson.datatype.VavrModule;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -28,6 +30,11 @@ public class LicensingServiceApplication {
                                   .setReadTimeout(Duration.of(1, ChronoUnit.HOURS))
                                   .additionalInterceptors(new TransactionContextInterceptor())
                                   .build();
+    }
+
+    @Bean
+    Module vavrModule() {
+        return new VavrModule();
     }
 
     public static void main(String[] args) {

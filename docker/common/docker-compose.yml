@@ -6,6 +6,18 @@ services:
   eurekaserver:
     image: application/eureka-server:es
 
+  zookeeper:
+    image: 'bitnami/zookeeper:latest'
+    environment:
+      ALLOW_ANONYMOUS_LOGIN: "yes"
+
+  kafkaserver:
+    image: 'bitnami/kafka:latest'
+    environment:
+      ALLOW_PLAINTEXT_LISTENER: "yes"
+      KAFKA_CFG_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE: "true"
+
   zuulgateway:
     image: application/zuul-gateway:zg
     ports:
