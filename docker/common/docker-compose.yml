@@ -2,13 +2,18 @@ version: '2'
 services:
   configserver:
     image: application/config-server:cs
-    ports:
-      - "8888:8888"
 
   eurekaserver:
     image: application/eureka-server:es
+
+  zuulgateway:
+    image: application/zuul-gateway:zg
     ports:
-      - "8761:8761"
+      - "8080:5555"
+    environment:
+      SERVER_PORT: "5555"
+      EUREKASERVER_PORT:   "8761"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
 
   database:
     image: postgres:9.5
@@ -21,8 +26,17 @@ services:
 
   licensing-service:
     image: application/licensing-service:ls
-    ports:
-      - "8080:8080" #network-port:container-port
+    #ports: entry point only via gateway
+    #  - "8080:8080" #network-port:container-port
+    environment:
+      PROFILE: "default"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      CONFIGSERVER_PORT: "8888"
+      DATABASESERVER_PORT: "5432"
+
+  licensing-service2:
+    image: application/licensing-service:ls
     environment:
       PROFILE: "default"
       CONFIGSERVER_URI: "http://configserver:8888"
@@ -32,8 +46,8 @@ services:
 
   organization-service:
     image: application/organization-service:os
-    ports:
-      - "8085:8085"
+    #ports:
+    #  - "8085:8085"
     environment:
       PROFILE: "default"
       SERVER_PORT: "8085"
@@ -46,8 +60,8 @@ services:
 
   organization-service2:
     image: application/organization-service:os
-    ports:
-      - "8086:8086"
+    #ports:
+    #  - "8086:8086"
     environment:
       PROFILE: "default"
       SERVER_PORT: "8086"

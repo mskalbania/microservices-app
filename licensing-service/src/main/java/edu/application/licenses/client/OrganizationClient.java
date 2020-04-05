@@ -5,7 +5,6 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import edu.application.licenses.cache.OrganizationCache;
 import edu.application.licenses.exception.LicensesServiceException;
 import edu.application.licenses.model.Organization;
-import edu.application.licenses.utils.TransactionContextHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
@@ -42,7 +41,6 @@ public class OrganizationClient {
                             @HystrixProperty(name = "maxQueueSize", value = "10")} //10 rq will be queued if pool is busy
                     )
     public Organization getOrganization(String organizationId) {
-        LOG.info("Conv-id [{}]", TransactionContextHolder.getCtx().getConversationId()); //Checking if ctx was propagated from parent thread
         ResponseEntity<Organization> exchange = restTemplate.exchange("http://organizationservice/v1/organizations/{organizationId}",
                                                                       HttpMethod.GET, null, Organization.class, organizationId);
         if (exchange.getStatusCode().isError()) {

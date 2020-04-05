@@ -4,7 +4,6 @@ import edu.application.licenses.client.OrganizationClient;
 import edu.application.licenses.exception.LicensesServiceException;
 import edu.application.licenses.model.License;
 import edu.application.licenses.reposiotry.LicensesRepository;
-import edu.application.licenses.utils.TransactionContextHolder;
 import io.vavr.collection.List;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
@@ -38,7 +37,6 @@ public class LicensesService {
     private License fillInOrganizationInfo(String organizationId, License license) {
         return Try.of(() -> organizationClient.getOrganization(organizationId))
                   .map(license::withOrganizationInfo)
-                  .peek(__ -> LOG.info("Conv-id [{}]", TransactionContextHolder.getCtx().getConversationId()))
                   .onFailure(ex -> LOG.error("Unable to retrieve organization info, cause: [{}], [{}]", ex.getMessage(), ex.getStackTrace()))
                   .getOrElseThrow(LicensesServiceException::unableToRetrieveOrganizationData);
     }

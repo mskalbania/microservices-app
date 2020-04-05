@@ -8,22 +8,22 @@ Accept: application/json
 
 ###
 
-GET http://localhost:8080/v1/tools/eureka/services
+GET http://localhost:8080/api/licensing/v1/tools/eureka/services
 Accept: application/json
 
 ###
 
-GET http://localhost:8085/v1/organizations/e254f8c-c442-4ebe-a82a-e2fc1d1ff78a
+GET http://localhost:8080/api/licensing/v1/organizations/e254f8c-c442-4ebe-a82a-e2fc1d1ff78a/licenses/t9876f8c-c338-4abc-zf6a-ttt1
 Accept: application/json
 
 ###
 
-GET http://localhost:8761/eureka/apps/
+GET http://localhost:8080/api/organzation/v1/organizations/e254f8c-c442-4ebe-a82a-e2fc1d1ff78a
+Accept: application/json
+
+###
+
+GET http://localhost:8080/api/eureka/apps/
 Accept: application/xml
-
-###
-
-GET http://localhost:8085/actuator/health
-Accept: application/json
 
 ###

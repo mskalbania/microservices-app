@@ -1,4 +1,4 @@
-package edu.application.licenses.utils;
+package edu.application.organization.utils;
 
 import org.springframework.stereotype.Component;
 
@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static edu.application.licenses.utils.TransactionContext.CONVERSATION_ID_HEADER;
+import static edu.application.organization.utils.TransactionContext.CONVERSATION_ID_HEADER;
 
 @Component
 public class TransactionContextFilter implements Filter {

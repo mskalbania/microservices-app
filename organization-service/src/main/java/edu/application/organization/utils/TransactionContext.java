@@ -1,4 +1,4 @@
-package edu.application.licenses.utils;
+package edu.application.organization.utils;
 
 import lombok.Data;
 

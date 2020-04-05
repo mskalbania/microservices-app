@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: 'zuulgateway'
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+
+ribbon:
+  ReadTimeout: 60000
+
+zuul:
+  host:
+    time-to-live: -1
+    connect-timeout-millis: 6000
+    socket-timeout-millis: 60000
+  ignored-services: '*' #do not automatically map eureka services
+  prefix: /api
+  routes:
+    organizationservice: /organzation/**
+    licensingservice: /licensing/**
+    eureka: #direct mapping to eureka which is not registered
+      path: /eureka/**
+      url: http://eurekaserver:8761/eureka/ #docker dns

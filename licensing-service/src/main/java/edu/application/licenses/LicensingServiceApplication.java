@@ -1,5 +1,6 @@
 package edu.application.licenses;
 
+import edu.application.licenses.utils.TransactionContextInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -23,9 +24,10 @@ public class LicensingServiceApplication {
     @LoadBalanced
     public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
         //RestTemplate set to long timeout to test hystrix circuit breaking
-        restTemplateBuilder.setConnectTimeout(Duration.of(1, ChronoUnit.HOURS));
-        restTemplateBuilder.setReadTimeout(Duration.of(1, ChronoUnit.HOURS));
-        return restTemplateBuilder.build();
+        return restTemplateBuilder.setConnectTimeout(Duration.of(1, ChronoUnit.HOURS))
+                                  .setReadTimeout(Duration.of(1, ChronoUnit.HOURS))
+                                  .additionalInterceptors(new TransactionContextInterceptor())
+                                  .build();
     }
 
     public static void main(String[] args) {
